@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Login Page</title>
+ <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body {
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center/cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Container */
+    .container {
+      width: 400px;
+      background: rgba(255,255,255,0.15);
+      padding: 40px;
+      border-radius: 15px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Forms */
+    .form-box { display: none; }
+    .form-box.active { display: block; }
+    h2 { text-align: center; margin-bottom: 20px; color: #1b2735; }
+    input {
+      width: 100%; padding: 12px; margin: 10px 0;
+      border: 1px solid #ccc; border-radius: 5px; font-size: 16px;
+    }
+    button {
+      width: 100%; padding: 12px; margin-top: 15px;
+      background: #1b2735; color: #fff; font-size: 16px;
+      border: none; border-radius: 5px; cursor: pointer; font-weight: bold;
+    }
+    button:hover { background: #333; }
+    .switch {
+      text-align: center; margin-top: 15px; font-size: 14px;
+    }
+    .switch a { color: #f4c542; text-decoration: none; font-weight: bold; }
+    .switch a:hover { text-decoration: underline; }
+
+    /* Popup */
+    .popup {
+      position: fixed; top: 20px; right: 20px;
+      background: #fff; border: 1px solid #ddd;
+      padding: 20px; border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: none; animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===================== */
+    /*   RESPONSIVE QUERIES  */
+    /* ===================== */
+
+    /* Container resize */
+    @media (max-width: 600px) {
+      .container {
+        width: 90%;
+        padding: 20px;
+      }
+      h2 { font-size: 20px; }
+      input, button { font-size: 14px; padding: 10px; }
+      .switch { font-size: 13px; }
+    }
+
+    @media (max-width: 400px) {
+      .container { padding: 15px; }
+      h2 { font-size: 18px; }
+    }
+</style>
+
+</head>
+<body>
+  <div class="container">
+    <!-- Login Form -->
+    <div class="form-box active" id="login-form">
+      <h2>Login</h2>
+      <input type="email" id="login-email" placeholder="Enter your email" required>
+      <input type="password" id="login-password" placeholder="Password" required>
+      <a href="#">Forgot password?</a>
+      <button onclick="login()"><h><b>LOG IN</b></h4></button>
+      <div class="google">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
+        Sign in with Google
+      </div>
+      <div class="toggle">
+        Are you new? <a onclick="showSignup()">Create an Account</a>
+      </div>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="form-box" id="signup-form">
+      <h2>Create Account</h2>
+      <input type="text" id="name" placeholder="Enter your name" required>
+      <input type="email" id="email" placeholder="Enter your email" required>
+      <input type="password" id="password" placeholder="Enter your password" required>
+      <button onclick="signup()">Sign Up</button>
+      <div class="toggle">
+        Already have an account? <a onclick="showLogin()">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Popup -->
+  <div class="popup" id="popup">
+    <div class="popup-content" id="popup-content">
+      <h3 id="popup-title">Success!</h3>
+      <p id="popup-message">You are successfully logged in.</p>
+    </div>
+  </div>
+
+  <script>
+    function showSignup() {
+      document.getElementById("login-form").classList.remove("active");
+      document.getElementById("signup-form").classList.add("active");
+    }
+    function showLogin() {
+      document.getElementById("signup-form").classList.remove("active");
+      document.getElementById("login-form").classList.add("active");
+    }
+
+    // Show popup function
+    function showPopup(title, message) {
+      document.getElementById("popup-title").innerText = title;
+      document.getElementById("popup-message").innerText = message;
+      document.getElementById("popup").style.display = "flex";
+
+      // Redirect after 2 sec
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 4000);
+    }
+
+    // Login process
+    function login() {
+      let email = document.getElementById("login-email").value;
+      let password = document.getElementById("login-password").value;
+
+      if(email && password){ 
+        showPopup("✅ Login Successful!", "Welcome back to our website.");
+      } else {
+        showPopup("⚠️ Error!", "Please enter both email and password.");
+      }
+    }
+
+    // Signup process
+    function signup() {
+      showPopup("🎉 Signup Successful!", "You are successfully joined our website.");
+    }
+  </script>
+</body>
+</html>
+
